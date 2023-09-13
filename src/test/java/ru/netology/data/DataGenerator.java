@@ -34,7 +34,7 @@ public class DataGenerator {
     }
 
     @Step("Генерируем всю рандомную информацию о пользователе: город, имя, телефон")
-    public static UserInfo generateUser(String locale) {
+    public static UserInfo generateUser(String ignoredLocale) {
         return new UserInfo(generateCity(), generateName(), generatePhone());
     }
 }

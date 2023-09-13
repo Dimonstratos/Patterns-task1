@@ -6,5 +6,8 @@ public class UserInfo {
     String phone;
 
     public UserInfo(String generateCity, String generateName, String generatePhone) {
+        city = generateCity;
+        name = generateName;
+        phone = generatePhone;
     }
 }
