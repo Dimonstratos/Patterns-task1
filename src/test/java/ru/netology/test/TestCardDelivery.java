@@ -71,7 +71,7 @@ public class TestCardDelivery {
         $("[data-test-id='agreement']").click();
         $(".button").click();
         $("[data-test-id='success-notification']").shouldHave(text("Встреча успешно запланирована на "
-                + firstMeetingDate));
+                + secondMeetingDate));
         $(".button").click();
         $("[data-test-id='replan-notification']").shouldHave(text("У вас уже запланирована встреча на другую дату." +
                 " Перепланировать?"));

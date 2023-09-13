@@ -13,9 +13,9 @@ public class DataGenerator {
 
     private static final Faker faker = new Faker(new Locale("ru"));
 
-    @Step("Генерируем актуальную дату с запасом в 4 дня в формате д.м.г")
+    @Step("Генерируем актуальную дату в формате д.м.г")
     public static String generateDate(int shift) {
-        return LocalDate.now().plusDays(4).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     @Step("Фейкеом генерируем рандомные города")
