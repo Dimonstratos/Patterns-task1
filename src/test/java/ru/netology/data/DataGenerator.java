@@ -1,40 +1,53 @@
 package ru.netology.data;
 
 import com.github.javafaker.Faker;
-import io.qameta.allure.Step;
+import lombok.Value;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class DataGenerator {
+    private static String locale;
+
     private DataGenerator() {
     }
 
-    private static final Faker faker = new Faker(new Locale("ru"));
+    public static String generateDate(int days) {
 
-    @Step("Генерируем актуальную дату в формате д.м.г")
-    public static String generateDate(int shift) {
-        return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
-    @Step("Фейкеом генерируем рандомные города")
-    public static String generateCity() {
-        return faker.address().cityName();
+    public static String generateCity(String locale) {
+        Faker faker = new Faker(new Locale("ru"));
+        String city = faker.address().city();
+        return city;
     }
 
-    @Step("Фейкеом генерируем рандомные имена")
-    public static String generateName() {
+    public static String generateName(String locale) {
+        Faker faker = new Faker(new Locale("ru"));
         return faker.name().fullName();
     }
 
-    @Step("Фейкеом генерируем рандомные номера телефонов из 11 цифр")
-    public static String generatePhone() {
-        return faker.number().digits(11);
+    public static String generatePhone(String locale) {
+        DataGenerator.locale = locale;
+        Faker faker = new Faker(new Locale("ru"));
+        return faker.phoneNumber().phoneNumber();
     }
 
-    @Step("Генерируем всю рандомную информацию о пользователе: город, имя, телефон")
-    public static UserInfo generateUser(String ignoredLocale) {
-        return new UserInfo(generateCity(), generateName(), generatePhone());
+    public static class Registration {
+        private Registration() {
+        }
+
+        public static UserInfo generateUser(String locale) {
+            return new UserInfo(generateCity(locale),generateName(locale),generatePhone(locale));
+        }
+    }
+
+    @Value
+    public static class UserInfo {
+        String city;
+        String name;
+        String phone;
     }
 }
